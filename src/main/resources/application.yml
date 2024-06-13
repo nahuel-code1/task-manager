@@ -16,7 +16,7 @@ management:
 spring:
   datasource:
     sql-server:
-      jdbcUrl: jdbc:sqlserver://DESKTOP-MERCY\SQLEXPRESS;databaseName=segel;encrypt=false;
+      jdbcUrl: jdbc:sqlserver://localhost;databaseName=segel;encrypt=false;
       username: sa
       password: 123
       driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
