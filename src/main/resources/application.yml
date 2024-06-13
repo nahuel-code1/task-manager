@@ -1,0 +1,25 @@
+version: v1
+server:
+  servlet:
+    context-path: /@project.artifactId@
+springdoc:
+  show-actuator: true
+management:
+  metrics:
+    tags:
+      application: '@project.artifactId@'
+  endpoints:
+    web:
+      exposure:
+        include: health, info,metrics,prometheus, caches
+
+spring:
+  datasource:
+    sql-server:
+      jdbcUrl: jdbc:sqlserver://localhost;databaseName=segel;encrypt=false;
+      username: sa
+      password: 123
+      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+logging:
+  level:
+   com.example.taskmanager: DEBUG
