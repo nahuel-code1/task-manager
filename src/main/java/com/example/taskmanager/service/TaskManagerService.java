@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.example.taskmanager.beans.AssignTaskUserReq;
 import com.example.taskmanager.beans.LoginFormReq;
+import com.example.taskmanager.beans.LoginRes;
 import com.example.taskmanager.beans.Project;
 import com.example.taskmanager.beans.User;
 
@@ -15,7 +16,7 @@ public interface TaskManagerService {
 
 	StateResultRes registerUser(User usuario);
 	
-	StateResultRes login(LoginFormReq usuarioLogin);
+	LoginRes login(LoginFormReq usuarioLogin);
 
 	StateResultRes createProject(Project project);
 	
@@ -35,4 +36,6 @@ public interface TaskManagerService {
 	
 	List<Task> getTasksAssignedToUser(User user);
 
+	List<Project> getProjectsByUserId(User user);
+	
 }

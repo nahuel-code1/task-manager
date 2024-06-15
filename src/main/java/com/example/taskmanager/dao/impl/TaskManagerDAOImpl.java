@@ -17,6 +17,7 @@ import com.example.taskmanager.dao.TaskManagerDAO;
 import com.example.taskmanager.mapper.AssignedTaskMapper;
 import com.example.taskmanager.mapper.ProjectTaskMapper;
 import com.example.taskmanager.mapper.TaskStatusQuantityResMapper;
+import com.example.taskmanager.mapper.ProjectMapper;
 import com.example.taskmanager.mapper.UsuarioMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -170,5 +171,15 @@ public class TaskManagerDAOImpl implements TaskManagerDAO {
 		    return null;
 		}
     }
+	
+	@Override
+    public List<Project> getProjectsByUserId(Long userId) {
+		try {
+			return jdbcSQLServer.query(SQLQueries.GET_PROJECTS_BY_USER_ID, new ProjectMapper(), userId);
+		} catch (DataAccessException e) {
+		    logger.error("getProjectsByUserId: Error de acceso a datos al recuperar las tareas asignadas a un usuario", e);
+		    return null;
+		}
+	}
 	
 }

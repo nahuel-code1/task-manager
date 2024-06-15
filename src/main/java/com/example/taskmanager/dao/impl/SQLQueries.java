@@ -24,6 +24,9 @@ public final class SQLQueries {
             "t.id as task_id, t.title as task_title, t.description as task_description, t.status as task_status " +
             "FROM projects p LEFT JOIN tasks t ON p.id = t.project_id where p.user_id = ?";
 	
+	public static final String GET_PROJECTS_BY_USER_ID = 
+			"SELECT id, name, user_id FROM projects where user_id = ?";
+	
 	// Task Queries
 	public static final String CREATE_TASK = 
 			"INSERT INTO tasks (title, description, status, project_id) VALUES (?, ?, ?, ?)";

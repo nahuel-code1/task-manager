@@ -13,6 +13,7 @@ import com.example.taskmanager.beans.Task;
 import com.example.taskmanager.beans.TaskStatusQuantityRes;
 import com.example.taskmanager.beans.AssignTaskUserReq;
 import com.example.taskmanager.beans.LoginFormReq;
+import com.example.taskmanager.beans.LoginRes;
 import com.example.taskmanager.beans.Project;
 import com.example.taskmanager.beans.User;
 import com.example.taskmanager.controller.decorator.TaskManagerController;
@@ -35,10 +36,10 @@ public class TaskManagerControllerImpl implements TaskManagerController {
 	}
 	
 	@Override
-	public ResponseEntity<StateResultRes> login(LoginFormReq usuarioLogin) {
-		StateResultRes response = taskManagerService.login(usuarioLogin);
+	public ResponseEntity<LoginRes> login(LoginFormReq usuarioLogin) {
+		LoginRes response = taskManagerService.login(usuarioLogin);
 		
-		if (response.getEstado().equals(0))
+		if (response.getStateResult().getEstado().equals(0))
 			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		
 		return ResponseEntity.ok(response);
@@ -135,4 +136,13 @@ public class TaskManagerControllerImpl implements TaskManagerController {
 		return ResponseEntity.ok(response);
 	}
 	
+	@Override
+	public ResponseEntity<List<Project>> getProjectsByUserId(User user){
+		List<Project> response = taskManagerService.getProjectsByUserId(user);
+		
+		if (response == null)
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		
+		return ResponseEntity.ok(response);
+	}
 }

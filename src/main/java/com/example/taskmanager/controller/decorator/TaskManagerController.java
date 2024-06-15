@@ -9,6 +9,7 @@ import com.example.taskmanager.beans.Task;
 import com.example.taskmanager.beans.TaskStatusQuantityRes;
 import com.example.taskmanager.beans.AssignTaskUserReq;
 import com.example.taskmanager.beans.LoginFormReq;
+import com.example.taskmanager.beans.LoginRes;
 import com.example.taskmanager.beans.Project;
 import com.example.taskmanager.beans.User;
 
@@ -16,7 +17,7 @@ public interface TaskManagerController {
 
 	ResponseEntity<StateResultRes> registerUser(User usuario);
 	
-	ResponseEntity<StateResultRes> login(LoginFormReq usuarioLogin);
+	ResponseEntity<LoginRes> login(LoginFormReq usuarioLogin);
 
 	ResponseEntity<StateResultRes> createProject(Project project);
 	
@@ -36,5 +37,6 @@ public interface TaskManagerController {
 	
 	ResponseEntity<List<Task>> getTasksAssignedToUser(User user);
 
+	ResponseEntity<List<Project>> getProjectsByUserId(User user);
 
 }

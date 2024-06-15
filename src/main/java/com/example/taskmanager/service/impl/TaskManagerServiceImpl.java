@@ -10,11 +10,13 @@ import com.example.taskmanager.beans.Task;
 import com.example.taskmanager.beans.TaskStatusQuantityRes;
 import com.example.taskmanager.beans.AssignTaskUserReq;
 import com.example.taskmanager.beans.LoginFormReq;
+import com.example.taskmanager.beans.LoginRes;
 import com.example.taskmanager.beans.Project;
 import com.example.taskmanager.beans.User;
 import com.example.taskmanager.dao.TaskManagerDAO;
 import com.example.taskmanager.service.TaskManagerService;
 import com.example.util.PasswordUtils;
+import com.ezample.taskmanager.enums.TaskStatus;
 
 import java.util.Base64;
 
@@ -56,23 +58,27 @@ public class TaskManagerServiceImpl implements TaskManagerService {
 	}
 	
 	@Override
-	public StateResultRes login(LoginFormReq usuarioLogin) {
-		StateResultRes response = new StateResultRes();
-		response.setEstado(1);
-		response.setMensaje("Login exitoso");
+	public LoginRes login(LoginFormReq usuarioLogin) {
+		LoginRes response = new LoginRes();
+		StateResultRes stateResult = new StateResultRes();
+		stateResult.setEstado(1);
+		stateResult.setMensaje("Login exitoso");
+		response.setStateResult(stateResult);
 		
-		User usuario = taskManagerDAO.findByUserName(usuarioLogin.getNombreUsuario());
-		if (usuario == null) {
-			response.setEstado(0);
-			response.setMensaje("No existe el nombre de usuario ingresado");
+		User user = taskManagerDAO.findByUserName(usuarioLogin.getNombreUsuario());
+		if (user == null) {
+			stateResult.setEstado(0);
+			stateResult.setMensaje("No existe el nombre de usuario ingresado");
 			return response;
 		}
 		
-		if (!verifyPassword(usuarioLogin.getContraseña(), usuario.getContraseña())) {
-			response.setEstado(0);
-			response.setMensaje("Contraseña incorrecta");
+		if (!verifyPassword(usuarioLogin.getContraseña(), user.getContraseña())) {
+			stateResult.setEstado(0);
+			stateResult.setMensaje("Contraseña incorrecta");
 			return response;
 		}
+		
+		response.setUser(taskManagerDAO.findByUserName(usuarioLogin.getNombreUsuario()));
 		
 		return response;
 		
@@ -112,7 +118,7 @@ public class TaskManagerServiceImpl implements TaskManagerService {
 		StateResultRes response = new StateResultRes();
 		response.setEstado(1);
 		response.setMensaje("Tarea creado exitosamente");
-		
+		task.setStatus(TaskStatus.PENDING);
 		if (taskManagerDAO.createTask(task) == 0) {
 			response.setEstado(0);
 			response.setMensaje("Ha ocurrido un error al intentar crear la tarea");
@@ -188,6 +194,11 @@ public class TaskManagerServiceImpl implements TaskManagerService {
 	@Override
 	public List<Task> getTasksAssignedToUser(User user) {
 		return taskManagerDAO.getTasksAssignedToUser(user.getId());
+	}
+	
+	@Override
+	public List<Project> getProjectsByUserId(User user) {
+		return taskManagerDAO.getProjectsByUserId(user.getId());
 	}
 	
 }

@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.*;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 
 import com.example.taskmanager.beans.StateResultRes;
 import com.example.taskmanager.beans.Task;
 import com.example.taskmanager.beans.TaskStatusQuantityRes;
 import com.example.taskmanager.beans.AssignTaskUserReq;
 import com.example.taskmanager.beans.LoginFormReq;
+import com.example.taskmanager.beans.LoginRes;
 import com.example.taskmanager.beans.Project;
 import com.example.taskmanager.beans.User;
 import com.example.taskmanager.controller.impl.TaskManagerControllerImpl;
@@ -47,7 +49,7 @@ public class TaskManagerControllerDecorator implements TaskManagerController {
     @PostMapping(value = "/login", produces = { MediaType.APPLICATION_JSON_VALUE })
     @Operation(summary = "Iniciar sesión de un usuario")
     @Override
-    public ResponseEntity<StateResultRes> login(@RequestBody LoginFormReq usuarioLogin) {
+    public ResponseEntity<LoginRes> login(@RequestBody LoginFormReq usuarioLogin) {
     	return taskManagerCtrlImpl.login(usuarioLogin);
     }
     
@@ -60,7 +62,7 @@ public class TaskManagerControllerDecorator implements TaskManagerController {
     @PostMapping(value = "/create/project", produces = { MediaType.APPLICATION_JSON_VALUE })
     @Override
     @Operation(summary = "Crear un nuevo proyecto")
-    public ResponseEntity<StateResultRes> createProject(@RequestBody Project project) {
+    public ResponseEntity<StateResultRes> createProject(@RequestBody @Valid Project project) {
     	return taskManagerCtrlImpl.createProject(project);
     }
     
@@ -160,6 +162,17 @@ public class TaskManagerControllerDecorator implements TaskManagerController {
     @Operation(summary = "Obtener tareas asignadas a un usuario")
     public ResponseEntity<List<Task>> getTasksAssignedToUser(@RequestBody User user) {
     	return taskManagerCtrlImpl.getTasksAssignedToUser(user);
+    }
+ 
+    /**
+     * Recupera los proyectos asociados a un usuario específico.
+     * @param userId El ID del usuario para filtrar los proyectos.
+     * @return ResponseEntity con una lista de proyectos asociados al usuario.
+     */
+    @PostMapping(value = "/projects/userId", produces = { MediaType.APPLICATION_JSON_VALUE })
+    @Operation(summary = "Obtener proyectos asociados a un usuario")
+    public ResponseEntity<List<Project>> getProjectsByUserId(@RequestBody User user) {
+    	return taskManagerCtrlImpl.getProjectsByUserId(user);
     }
     
 }
