@@ -182,4 +182,14 @@ public class TaskManagerDAOImpl implements TaskManagerDAO {
 		}
 	}
 	
+	@Override
+    public List<Task> getTasksByUserId(Long userId) {
+		try {
+			return jdbcSQLServer.query(SQLQueries.GET_TASKS_BY_USER_ID, new AssignedTaskMapper(), userId);
+		} catch (DataAccessException e) {
+		    logger.error("getTasksByUserId: Error de acceso a datos al recuperar las tareas de un usuario", e);
+		    return null;
+		}
+	}
+	
 }

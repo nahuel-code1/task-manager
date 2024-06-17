@@ -38,4 +38,6 @@ public interface TaskManagerService {
 
 	List<Project> getProjectsByUserId(User user);
 	
+	List<Task> getTasksByUserId(User user);
+
 }

@@ -47,11 +47,11 @@ public class TaskManagerControllerImplTest {
 
     @Test
     public void testLogin() {
-        StateResultRes expectedResult = MockUtil.buildStateResultResOK();
+		LoginRes expectedResult = MockUtil.buildLoginRes();
 
         when(taskManagerService.login(any(LoginFormReq.class))).thenReturn(expectedResult);
 
-        ResponseEntity<StateResultRes> response = controller.login(MockUtil.buildLoginFormReq());
+        ResponseEntity<LoginRes> response = controller.login(MockUtil.buildLoginFormReq());
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(expectedResult, response.getBody());

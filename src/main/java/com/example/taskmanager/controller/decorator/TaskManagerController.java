@@ -38,5 +38,7 @@ public interface TaskManagerController {
 	ResponseEntity<List<Task>> getTasksAssignedToUser(User user);
 
 	ResponseEntity<List<Project>> getProjectsByUserId(User user);
+	
+	ResponseEntity<List<Task>> getTasksByUserId(User user);
 
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.taskmanager.beans.LoginFormReq;
+import com.example.taskmanager.beans.LoginRes;
 import com.example.taskmanager.beans.Project;
 import com.example.taskmanager.beans.StateResultRes;
 import com.example.taskmanager.beans.Task;
@@ -49,6 +50,13 @@ public class MockUtil {
 	    expectedResult.setEstado(1);
 	    expectedResult.setMensaje("proceso finalizado con exito");
 	    return expectedResult;
+	}
+	
+	public static LoginRes buildLoginRes() {
+		LoginRes res = new LoginRes();
+		res.setStateResult(buildStateResultResOK());
+		res.setUser(buildUser());
+	    return res;
 	}
 	
 	public static LoginFormReq buildLoginFormReq() {

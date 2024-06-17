@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.example.taskmanager.beans.AssignTaskUserReq;
 import com.example.taskmanager.beans.LoginFormReq;
+import com.example.taskmanager.beans.LoginRes;
 import com.example.taskmanager.beans.Project;
 import com.example.taskmanager.beans.StateResultRes;
 import com.example.taskmanager.beans.Task;
@@ -54,11 +55,11 @@ public class TaskManagerControllerDecoratorTest {
 
 	@Test
     public void testLogin() {
-        StateResultRes expectedResult = MockUtil.buildStateResultResOK();
+		LoginRes expectedResult = MockUtil.buildLoginRes();
 
         when(taskManagerCtrlImpl.login(any(LoginFormReq.class))).thenReturn(ResponseEntity.ok(expectedResult));
 
-        ResponseEntity<StateResultRes> response = controller.login(MockUtil.buildLoginFormReq());
+        ResponseEntity<LoginRes> response = controller.login(MockUtil.buildLoginFormReq());
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(expectedResult, response.getBody());

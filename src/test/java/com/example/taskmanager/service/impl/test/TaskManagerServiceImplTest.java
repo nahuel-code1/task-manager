@@ -53,7 +53,7 @@ public class TaskManagerServiceImplTest {
     @Test
     public void testLogin() {
         when(taskManagerDAO.findByUserName(anyString())).thenReturn(testUser);
-        StateResultRes response = service.login(MockUtil.buildLoginFormReq());
+        LoginRes response = service.login(MockUtil.buildLoginFormReq());
         assertNotNull(response);
     }
 

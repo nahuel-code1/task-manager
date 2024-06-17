@@ -52,5 +52,8 @@ public final class SQLQueries {
 			+ "INNER JOIN assignments a ON t.id = a.task_id "
 			+ "WHERE a.user_id = ?";
 	
+	public static final String GET_TASKS_BY_USER_ID = 
+			"SELECT t.id, t.title, t.description, t.status FROM tasks t WHERE t.project_id IN (SELECT p.id FROM projects p WHERE p.user_id = ?)";
+	
 
 }

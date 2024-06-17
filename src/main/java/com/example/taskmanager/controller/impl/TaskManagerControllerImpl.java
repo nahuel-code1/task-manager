@@ -145,4 +145,14 @@ public class TaskManagerControllerImpl implements TaskManagerController {
 		
 		return ResponseEntity.ok(response);
 	}
+	
+	@Override
+	public ResponseEntity<List<Task>> getTasksByUserId(User user){
+		List<Task> response = taskManagerService.getTasksByUserId(user);
+		
+		if (response == null)
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		
+		return ResponseEntity.ok(response);
+	}
 }

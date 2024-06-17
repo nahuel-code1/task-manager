@@ -201,4 +201,9 @@ public class TaskManagerServiceImpl implements TaskManagerService {
 		return taskManagerDAO.getProjectsByUserId(user.getId());
 	}
 	
+	@Override
+	public List<Task> getTasksByUserId(User user) {
+		return taskManagerDAO.getTasksByUserId(user.getId());
+	}
+	
 }

@@ -175,4 +175,14 @@ public class TaskManagerControllerDecorator implements TaskManagerController {
     	return taskManagerCtrlImpl.getProjectsByUserId(user);
     }
     
+    /**
+     * Recupera las tareas asociadss a un usuario específico.
+     * @return ResponseEntity con una lista de tareas asociadas al usuario.
+     */
+    @PostMapping(value = "/tasks/userId", produces = { MediaType.APPLICATION_JSON_VALUE })
+    @Operation(summary = "Obtener tareas asociadas a un usuario")
+    public ResponseEntity<List<Task>> getTasksByUserId(@RequestBody User user) {
+    	return taskManagerCtrlImpl.getTasksByUserId(user);
+    }
+    
 }

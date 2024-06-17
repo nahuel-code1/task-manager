@@ -35,4 +35,6 @@ public interface TaskManagerDAO {
 
 	List<Project> getProjectsByUserId(Long userId);
 	
+	List<Task> getTasksByUserId(Long userId);
+	
 }
